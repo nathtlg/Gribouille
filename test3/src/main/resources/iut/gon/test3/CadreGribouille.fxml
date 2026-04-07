@@ -20,7 +20,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
 
-
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
    <top>
       <MenuBar BorderPane.alignment="CENTER">
@@ -124,22 +123,40 @@
             <Insets bottom="1.0" left="2.0" right="2.0" top="2.0" />
          </padding>
          <children>
-            <HBox prefHeight="100.0" prefWidth="200.0">
+            <HBox prefHeight="21.0" prefWidth="116.0">
                <children>
-                  <Label text="X :" />
-                  <Label fx:id="labelX" text="0" />
+                  <Label text="X :">
+                     <padding>
+                        <Insets top="7.0" />
+                     </padding></Label>
+                  <Label fx:id="labelX" text="0">
+                     <padding>
+                        <Insets left="5.0" top="7.0" />
+                     </padding></Label>
                </children>
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
                <children>
-                  <Label text="Y:" />
-                  <Label fx:id="labelY" text="0" />
+                  <Label text="Y:">
+                     <padding>
+                        <Insets top="7.0" />
+                     </padding></Label>
+                  <Label fx:id="labelY" text="0">
+                     <padding>
+                        <Insets left="5.0" top="7.0" />
+                     </padding></Label>
                </children>
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2">
                <children>
-                  <Label text="Epaisseur :" />
-                  <Label fx:id="labelEpaisseur" text="3" />
+                  <Label text="Epaisseur :">
+                     <padding>
+                        <Insets top="7.0" />
+                     </padding></Label>
+                  <Label fx:id="labelEpaisseur" text="3">
+                     <padding>
+                        <Insets left="5.0" top="7.0" />
+                     </padding></Label>
                </children>
             </HBox>
             <Label fx:id="labelOutil" text="Outil" GridPane.columnIndex="3" />
