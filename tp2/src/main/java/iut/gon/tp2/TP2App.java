@@ -49,37 +49,97 @@ public class TP2App extends Application {
 
   /** Prépare les actions des boutons */
   private void prepareBoutons() {
-    ajouteTout.setOnAction(this::onAjouteTout);
-    retireTout.setOnAction(this::onRetireTout);
+	    ajouteTout.setOnAction(this::onAjouteTout);
+	    retireTout.setOnAction(this::onRetireTout);
+
+	    versDroite.setOnAction(this::onVersDroite);
+	    versGauche.setOnAction(this::onVersGauche);
     // TODO actions des deux boutons centraux
   }
+  
+  private void onVersDroite(ActionEvent actionEvent) {
+	    String selection = gauche.getSelectionModel().getSelectedItem();
+
+	    if (selection != null) {
+	        gauche.getItems().remove(selection);
+	        droite.getItems().add(selection);
+	    }
+	}
+  
+  private void onVersGauche(ActionEvent actionEvent) {
+	    String selection = droite.getSelectionModel().getSelectedItem();
+
+	    if (selection != null) {
+	        droite.getItems().remove(selection);
+	        gauche.getItems().add(selection);
+	    }
+	}
 
   /** Ajoute tous les éléments de gauche dans la liste de droite
    Active le bouton "Retirer tout" et désactive le bouton "Ajouter tout" */
   private void onAjouteTout(ActionEvent actionEvent) {
-    droite.getItems().addAll(gauche.getItems());
-    gauche.getItems().clear();
-    //TODO active/désactive les boutons
-  }
+	    droite.getItems().addAll(gauche.getItems());
+	    gauche.getItems().clear();
+
+	    ajouteTout.setDisable(true);
+	    retireTout.setDisable(false);
+	}
 
   /** Ajoute tous les éléments de droite dans la liste de gauche
    Active le bouton "Ajouter tout" et désactive le bouton "Retirer tout" */
   private void onRetireTout(ActionEvent actionEvent) {
-    //TODO
-  }
+	    gauche.getItems().addAll(droite.getItems());
+	    droite.getItems().clear();
+
+	    ajouteTout.setDisable(false);
+	    retireTout.setDisable(true);
+	}
 
   /** Prépare les menus et leurs événements */
   private void prepareMenus(MenuBar menus) {
-    //TODO Remplir la barre de menus
-  }
+
+	    // Création des menus
+	    Menu fichiers = new Menu("_Fichiers");
+	    Menu aide = new Menu("_Aide");
+
+	    // Création des items
+	    MenuItem quitter = new MenuItem("Quitter");
+	    MenuItem apropos = new MenuItem("À propos");
+
+	    // Ajout des items dans les menus
+	    fichiers.getItems().add(quitter);
+	    aide.getItems().add(apropos);
+
+	    // Ajout des menus dans la barre
+	    menus.getMenus().addAll(fichiers, aide);
+
+	    // Action Quitter
+	    quitter.setOnAction(event -> Platform.exit());
+
+	    // Action À propos
+	    apropos.setOnAction(event -> {
+	        Alert alert = new Alert(Alert.AlertType.NONE, "", ButtonType.CLOSE);
+	        alert.setTitle("À propos");
+	        alert.setContentText("Fait par vous !");
+	        alert.show();
+	    });
+	}
 
   /**
    Remplit la liste de gauche avec des valeurs
    Active le bouton "Ajouter tout"
    */
   private void prepareListe() {
-    //TODO active le bouton "Ajouter tout"
-  }
+	    gauche.getItems().addAll(
+	            "JFA",
+	            "Momo",
+	            "Leo",
+	            "Nathan",
+	            "Azelann"
+	    );
+
+	    ajouteTout.setDisable(false);
+	}
 
   private void extraitIds(Scene scene) {
     gauche = (ListView<String>) scene.lookup("#gauche");

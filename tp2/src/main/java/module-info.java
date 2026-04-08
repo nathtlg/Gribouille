@@ -1,7 +1,13 @@
-module iut.gon.tp2 {
-  requires javafx.controls;
-  requires javafx.fxml;
+/**
+ * 
+ */
+/**
+ * 
+ */
+module tp2 {
+    requires javafx.controls;
+    requires javafx.fxml;
 
-  opens iut.gon.tp2 to javafx.fxml;
-  exports iut.gon.tp2;
+    exports iut.gon.tp2;
+    opens iut.gon.tp2 to javafx.fxml;
 }
