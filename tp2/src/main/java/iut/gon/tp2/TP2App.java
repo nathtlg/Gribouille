@@ -42,10 +42,25 @@ public class TP2App extends Application {
 
   /** Prépare la fenêtre pour demander confirmation avant fermeture */
   private void prepareFermeture(Stage stage) {
-    stage.setOnCloseRequest(event -> {
-      //TODO confirmer ou consommer l'événement
-    });
-  }
+	    stage.setOnCloseRequest(event -> {
+
+	        Alert alert = new Alert(
+	                Alert.AlertType.CONFIRMATION,
+	                "Voulez-vous vraiment quitter l'application ?",
+	                ButtonType.YES,
+	                ButtonType.NO
+	        );
+
+	        alert.setTitle("Confirmation");
+	        alert.setHeaderText("Fermeture de l'application");
+
+	        ButtonType resultat = alert.showAndWait().orElse(ButtonType.NO);
+
+	        if (resultat != ButtonType.YES) {
+	            event.consume();
+	        }
+	    });
+	}
 
   /** Prépare les actions des boutons */
   private void prepareBoutons() {
