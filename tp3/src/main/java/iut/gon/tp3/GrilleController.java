@@ -14,7 +14,13 @@ public class GrilleController implements Initializable {
     @FXML
     private GridPane grille;
 
-    private Label[][] tabLabels = new Label[3][3];
+    private Label[][] labels = new Label[3][3];
+
+    private GrilleModel model;
+
+    public GrilleController(GrilleModel model) {
+        this.model = model;
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -26,24 +32,22 @@ public class GrilleController implements Initializable {
 
                 Label lab = new Label();
 
-                lab.setText(String.format("L%dC%d", lg +1, col+1));
+                lab.textProperty().bind(model.getCase(lg, col));
 
                 lab.setMaxSize(1000, 1000);
-
                 lab.setAlignment(Pos.CENTER);
 
-                lab.setStyle("-fx-border-color: black; -fx-font-size: 18;");
+                int ligne = lg;
+                int colonne = col;
 
                 lab.setOnMouseClicked(e -> {
-                    lab.setText("bonjour");
+
+                    model.setCase(ligne, colonne, "bonjour");
                 });
 
                 grille.add(lab, col, lg);
-
-                tabLabels[lg][col] = lab;
+                labels[lg][col] = lab;
             }
         }
     }
 }
-
-
