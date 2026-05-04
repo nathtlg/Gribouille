@@ -1,7 +1,11 @@
 package iut.gon.tp4;
 
+import java.io.IOException;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -33,8 +37,22 @@ public class TableController {
         nbNulles.setText(String.valueOf(scores.getNulles()));
     }
 
+    @FXML
     public void onFermer(ActionEvent event) {
-        // TODO fermer la fenêtre
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("grille.fxml"));
+
+            // IMPORTANT : recréer ou récupérer ton controller avec scores
+            GrilleController controller = new GrilleController(scores);
+            loader.setController(controller);
+
+            Parent root = loader.load();
+
+            table.getScene().setRoot(root);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void onReinit(ActionEvent event) {

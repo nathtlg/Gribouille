@@ -72,16 +72,46 @@ public class GrilleController implements Initializable {
       onGagne(null);
   }
 
-  private void onGagne(String joueur) {
-    //TODO demander le nom du joueur
-    //TODO modifier scores
-    //TODO appeler la table des scores
-  }
+  private void onGagne(String joueurGagnant) {
+
+	    if (joueurGagnant != null) {
+	        TextInputDialog dialog = new TextInputDialog();
+	        dialog.setTitle("Victoire !");
+	        dialog.setHeaderText("Joueur " + joueurGagnant + " a gagné !");
+	        dialog.setContentText("Nom du joueur :");
+
+	        Optional<String> result = dialog.showAndWait();
+
+	        result.ifPresent(nom -> {
+	            table.ajouteVictoire(nom);
+	        });
+
+	    } else {
+	        table.ajouteNulle();
+	    }
+
+	    afficherTable();
+	}
+  
+  private void afficherTable() {
+	    try {
+	        FXMLLoader loader = new FXMLLoader(getClass().getResource("table.fxml"));
+	        Parent root = loader.load();
+
+	        TableController controller = loader.getController();
+	        controller.setScores(table);
+
+	        grille.getScene().setRoot(root);
+
+	    } catch (IOException e) {
+	        new Alert(Alert.AlertType.ERROR, "Erreur chargement table").showAndWait();
+	    }
+	}
 
   @FXML
   public void onMenuNouvelle(ActionEvent evt) {
-    modele.nouvellePartie();
-  }
+	    modele.nouvellePartie();
+	  }
   @FXML
   public void onMenuTable(ActionEvent event) {
       try {
