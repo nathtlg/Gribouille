@@ -34,6 +34,7 @@ public class GrilleController implements Initializable {
   private @FXML GridPane grille;
   private @FXML HBox statut;
   private @FXML Label joueur;
+  private @FXML MenusController menusController;
 
   private Label[][] contenu = new Label[3][3];
 
@@ -54,6 +55,7 @@ public class GrilleController implements Initializable {
         label.setFont(Font.font(24));
       }
     joueur.textProperty().bind(modele.texteJoueur);
+    menusController.setParams(modele, table, this);
   }
 
   public void joueCase(int lg, int col) {
@@ -93,7 +95,7 @@ public class GrilleController implements Initializable {
 	    afficherTable();
 	}
   
-  private void afficherTable() {
+  void afficherTable() {
 	    try {
 	        FXMLLoader loader = new FXMLLoader(getClass().getResource("table.fxml"));
 	        Parent root = loader.load();
@@ -107,30 +109,4 @@ public class GrilleController implements Initializable {
 	        new Alert(Alert.AlertType.ERROR, "Erreur chargement table").showAndWait();
 	    }
 	}
-
-  @FXML
-  public void onMenuNouvelle(ActionEvent evt) {
-	    modele.nouvellePartie();
-	  }
-  @FXML
-  public void onMenuTable(ActionEvent event) {
-      try {
-          FXMLLoader loader = new FXMLLoader(getClass().getResource("table.fxml"));
-          Parent root = loader.load();
-
-    
-          TableController controller = loader.getController();
-          controller.setScores(table);
-
-          grille.getScene().setRoot(root);
-
-      } catch (IOException e) {
-          new Alert(Alert.AlertType.ERROR, "Impossible de charger la table des scores").showAndWait();
-      }
-  }
-
-  @FXML
-  public void onMenuQuitter(ActionEvent evt) {
-    Platform.exit();
-  }
 }
