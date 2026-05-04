@@ -12,6 +12,9 @@ import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+import javafx.scene.Parent;
 
 import java.io.IOException;
 import java.net.URL;
@@ -23,9 +26,10 @@ public class GrilleController implements Initializable {
   private GrilleModel modele;
   private Scores table;
 
-  public GrilleController() {
-    this.modele =  new GrilleModel();
-  }
+  public GrilleController(Scores table) {
+	    this.modele = new GrilleModel();
+	    this.table = table;
+	}
 
   private @FXML GridPane grille;
   private @FXML HBox statut;
@@ -79,8 +83,20 @@ public class GrilleController implements Initializable {
     modele.nouvellePartie();
   }
   @FXML
-  public void onMenuTable(ActionEvent evt) {
-    //TODO appeler la table des scores
+  public void onMenuTable(ActionEvent event) {
+      try {
+          FXMLLoader loader = new FXMLLoader(getClass().getResource("table.fxml"));
+          Parent root = loader.load();
+
+    
+          TableController controller = loader.getController();
+          controller.setScores(table);
+
+          grille.getScene().setRoot(root);
+
+      } catch (IOException e) {
+          new Alert(Alert.AlertType.ERROR, "Impossible de charger la table des scores").showAndWait();
+      }
   }
 
   @FXML
