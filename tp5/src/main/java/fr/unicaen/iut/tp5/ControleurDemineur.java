@@ -7,7 +7,9 @@ import javafx.scene.control.RadioMenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.RowConstraints;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -51,23 +53,35 @@ public class ControleurDemineur implements Initializable {
     
     private void initGrille(String userData) {
 
-        int[] valeurs =
-                ModeleDemineur.parseUserData(userData);
+        int[] valeurs = ModeleDemineur.parseUserData(userData);
 
-        int tailleY = valeurs[0];
-        int tailleX = valeurs[1];
+        int nbLignes = valeurs[0];
+        int nbColonnes = valeurs[1];
         int nbMines = valeurs[2];
 
-        modele.setTaille(tailleY, tailleX, nbMines);
+        modele.setTaille(nbLignes, nbColonnes, nbMines);
 
         grille.getChildren().clear();
 
-        System.out.println(
-                "Nouvelle grille : "
-                        + tailleY + " x "
-                        + tailleX
-                        + " avec "
-                        + nbMines + " mines."
-        );
+        grille.getColumnConstraints().clear();
+        grille.getRowConstraints().clear();
+
+        for (int x = 0; x < nbColonnes; x++) {
+
+            ColumnConstraints col = new ColumnConstraints();
+
+            col.setPrefWidth(32);
+
+            grille.getColumnConstraints().add(col);
+        }
+
+        for (int y = 0; y < nbLignes; y++) {
+
+            RowConstraints row = new RowConstraints();
+
+            row.setPrefHeight(32);
+
+            grille.getRowConstraints().add(row);
+        }
     }
 }
