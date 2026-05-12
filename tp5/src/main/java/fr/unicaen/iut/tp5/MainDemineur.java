@@ -17,9 +17,10 @@ public class MainDemineur extends Application {
 
         Scene scene = new Scene(loader.load());
 
-        stage.setTitle("Démineur");
         stage.setScene(scene);
         stage.show();
+        stage.sizeToScene();  
+        stage.setResizable(true); 
     }
 
     public static void main(String[] args) {

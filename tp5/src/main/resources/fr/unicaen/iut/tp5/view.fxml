@@ -1,68 +1,88 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.RadioMenuItem?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.ToggleGroup?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<BorderPane fx:controller="fr.unicaen.iut.tp5.ControleurDemineur" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
-   <top>
-      <VBox maxWidth="1.7976931348623157E308" prefWidth="100.0" BorderPane.alignment="CENTER">
-         <children>
+<BorderPane xmlns="http://javafx.com/javafx/25"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="fr.unicaen.iut.tp5.ControleurDemineur"
+            prefHeight="600.0"
+            prefWidth="800.0">
+
+    <top>
+        <VBox>
+
             <MenuBar>
-              <menus>
-                <Menu mnemonicParsing="false" text="Jeu">
-                  <items>
-                    <MenuItem mnemonicParsing="false" text="Quitter" />
-                  </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Difficulté">
-                  <items>
-                        <RadioMenuItem mnemonicParsing="false" text="Facile" userData="10;10;10">
-                           <toggleGroup>
-                              <ToggleGroup fx:id="niveau" />
-                           </toggleGroup>
-                        </RadioMenuItem>
-                        <RadioMenuItem mnemonicParsing="false" text="Moyen" toggleGroup="$niveau" userData="20;20;50" />
-                        <RadioMenuItem mnemonicParsing="false" text="Fifficile" toggleGroup="$niveau" userData="30;20;100" />
-                  </items>
-                </Menu>
-              </menus>
+
+                <menus>
+
+                    <Menu text="Jeu">
+                        <items>
+                            <MenuItem text="Quitter"/>
+                        </items>
+                    </Menu>
+
+                    <Menu text="Difficulté">
+
+                        <items>
+
+                            <fx:define>
+                                <ToggleGroup fx:id="niveau"/>
+                            </fx:define>
+
+                            <RadioMenuItem text="Facile"
+                                           userData="10;10;10"
+                                           toggleGroup="$niveau"
+                                           selected="true"/>
+
+                            <RadioMenuItem text="Moyen"
+                                           userData="20;20;50"
+                                           toggleGroup="$niveau"/>
+
+                            <RadioMenuItem text="Difficile"
+                                           userData="30;20;100"
+                                           toggleGroup="$niveau"/>
+
+                        </items>
+
+                    </Menu>
+
+                </menus>
+
             </MenuBar>
-            <HBox prefWidth="200.0">
-               <children>
-                  <Label text="Nombres d'inconnues">
-                     <graphic>
-                        <TextField editable="false" focusTraversable="false" fx:id="NbInconnues"/>
-                     </graphic>
-                  </Label>
-                  <Label text="Nombre de marques">
-                     <graphic>
-                        <TextField editable="false" focusTraversable="false" fx:id="NbMarques"/>
-                     </graphic>
-                  </Label>
-               </children>
+
+            <HBox spacing="20">
+
+                <Label text="Nombre d'inconnues">
+                    <graphic>
+                        <TextField fx:id="NbInconnues"
+                                   editable="false"
+                                   focusTraversable="false"/>
+                    </graphic>
+                </Label>
+
+                <Label text="Nombre de marques">
+                    <graphic>
+                        <TextField fx:id="NbMarques"
+                                   editable="false"
+                                   focusTraversable="false"/>
+                    </graphic>
+                </Label>
+
             </HBox>
-         </children>
-      </VBox>
-   </top>
-   <center>
-      <GridPane fx:id="grille" gridLinesVisible="true" BorderPane.alignment="CENTER">
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        </rowConstraints>
-      </GridPane>
-   </center>
+
+        </VBox>
+    </top>
+
+    <center>
+
+        <GridPane fx:id="grille"
+                  gridLinesVisible="true"
+                  maxWidth="Infinity"
+                  maxHeight="Infinity"
+                  prefWidth="800"
+                  prefHeight="600"/>
+
+    </center>
+
 </BorderPane>

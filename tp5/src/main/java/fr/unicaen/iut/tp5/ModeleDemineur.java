@@ -57,7 +57,8 @@ public class ModeleDemineur {
         marquees[y][x] = new ReadOnlyBooleanWrapper(false);
       }
     }
-    nbInconnues.set(tailleX*tailleY);
+    nbInconnues.set(tailleX * tailleY);
+    nbMarques.set(0);
     perdu.set(false);
   } // void setTaille(...)
 
