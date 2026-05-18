@@ -14,11 +14,13 @@ import javafx.css.PseudoClass;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.cell.ChoiceBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.paint.Color;
 import javafx.util.*;
 import javafx.util.converter.IntegerStringConverter;
 
@@ -36,6 +38,7 @@ public class FactureController implements Initializable {
   public TableColumn<Ligne, Number> totalHT;
   public TableColumn<Ligne, Number> totalTTC;
   public TextField sommeFacture;
+  private static final PseudoClass NEGATIF_CSS = PseudoClass.getPseudoClass("negatif");
 
   /**
    Called to initialize a controller after its root element has been completely processed.
@@ -117,9 +120,82 @@ public class FactureController implements Initializable {
 	    	        event.getRowValue().setProduit(event.getNewValue());
 	    	    }
 	    	});
+	      
+	      prixUnitaire.setCellFactory(new Callback<TableColumn<Ligne, Number>, TableCell<Ligne, Number>>() {
+	    	    @Override
+	    	    
+	    	    public TableCell<Ligne, Number> call(TableColumn<Ligne, Number> col) {
+	    	        return new TableCell<Ligne, Number>() {
+	    	            @Override
+	    	            protected void updateItem(Number item, boolean empty) {
+	    	                super.updateItem(item, empty);
+	    	                setAlignment(Pos.CENTER_RIGHT);
+	    	                if (empty || item == null) {
+	    	                    setGraphic(null);
+	    	                    setText(null);
+	    	                    pseudoClassStateChanged(NEGATIF_CSS, false);
+	    	                } else {
+	    	                    setText(String.format("%.2f €", item.floatValue()));
+	    	                    boolean negatif = item.floatValue() < 0;
+	    	                    pseudoClassStateChanged(NEGATIF_CSS, negatif);
+	    	                    setTextFill(negatif ? Color.RED : Color.BLACK);
+	    	                }
+	    	            }
+	    	        };
+	    	    }
+	    	});
+	      
+	      totalTTC.setCellFactory(new Callback<TableColumn<Ligne, Number>, TableCell<Ligne, Number>>() {
+	    	    @Override
+	    	    
+	    	    public TableCell<Ligne, Number> call(TableColumn<Ligne, Number> col) {
+	    	        return new TableCell<Ligne, Number>() {
+	    	            @Override
+	    	            protected void updateItem(Number item, boolean empty) {
+	    	                super.updateItem(item, empty);
+	    	                setAlignment(Pos.CENTER_RIGHT);
+	    	                if (empty || item == null) {
+	    	                    setGraphic(null);
+	    	                    setText(null);
+	    	                    pseudoClassStateChanged(NEGATIF_CSS, false);
+	    	                } else {
+	    	                    setText(String.format("%.2f €", item.floatValue()));
+	    	                    boolean negatif = item.floatValue() < 0;
+	    	                    pseudoClassStateChanged(NEGATIF_CSS, negatif);
+	    	                    setTextFill(negatif ? Color.RED : Color.BLACK);
+	    	                }
+	    	            }
+	    	        };
+	    	    }
+	    	});
+	      
+	      totalHT.setCellFactory(new Callback<TableColumn<Ligne, Number>, TableCell<Ligne, Number>>() {
+	    	    @Override
+	    	    
+	    	    public TableCell<Ligne, Number> call(TableColumn<Ligne, Number> col) {
+	    	        return new TableCell<Ligne, Number>() {
+	    	            @Override
+	    	            protected void updateItem(Number item, boolean empty) {
+	    	                super.updateItem(item, empty);
+	    	                setAlignment(Pos.CENTER_RIGHT);
+	    	                if (empty || item == null) {
+	    	                    setGraphic(null);
+	    	                    setText(null);
+	    	                    pseudoClassStateChanged(NEGATIF_CSS, false);
+	    	                } else {
+	    	                    setText(String.format("%.2f €", item.floatValue()));
+	    	                    boolean negatif = item.floatValue() < 0;
+	    	                    pseudoClassStateChanged(NEGATIF_CSS, negatif);
+	    	                    setTextFill(negatif ? Color.RED : Color.BLACK);
+	    	                }
+	    	            }
+	    	        };
+	    	    }
+	    	});
+	      
 
 
-	  
+	      rebindSomme();
   }
 
   public void onAjouter(ActionEvent actionEvent) {
