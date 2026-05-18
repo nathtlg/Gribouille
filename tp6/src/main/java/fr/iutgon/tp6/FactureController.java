@@ -5,16 +5,22 @@ import fr.iutgon.tp6.modele.Ligne;
 import fr.iutgon.tp6.modele.Produit;
 
 import javafx.beans.*;
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.NumberExpression;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.*;
 import javafx.css.PseudoClass;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.TableColumn.CellDataFeatures;
+import javafx.scene.control.cell.ChoiceBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.util.*;
+import javafx.util.converter.IntegerStringConverter;
 
 import java.net.URL;
 import java.text.NumberFormat;
@@ -54,7 +60,7 @@ public class FactureController implements Initializable {
 	  prixUnitaire.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Ligne, Number>, ObservableValue<Number>>() {
 		    @Override
 		    public ObservableValue<Number> call(CellDataFeatures<Ligne, Number> param) {
-		        return (ObservableValue<Number>) (ObservableValue<?>) param.getValue().produitProperty().get().prixProperty().asObject();
+		        return Bindings.select(param.getValue().produitProperty(), "prix");
 		    }
 		});
 	  
@@ -73,7 +79,46 @@ public class FactureController implements Initializable {
 		        return param.getValue().totalTTCProperty();
 		    }
 		});
-	  
+		
+	    qte.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+	    qte.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Ligne, Integer>>() {
+	        @Override
+	        public void handle(TableColumn.CellEditEvent<Ligne, Integer> event) {
+	            event.getRowValue().setQte(event.getNewValue());
+	        }
+	    });
+	    
+	    List<Produit> listeProduits = FabriqueProduits.getProduits();
+	    ObservableList<Produit> produitObservable = FXCollections.observableList(listeProduits);
+
+	    StringConverter<Produit> produitConverter = new StringConverter<>() {
+	        @Override
+	        public String toString(Produit p) {
+	          return p == null ? "" : p.getNom();
+	        }
+	        
+	        @Override
+	        public Produit fromString(String nom) {
+	            for (Produit p : listeProduits) {
+	                if (p.getNom().equals(nom)) {
+	                    return p;
+	                }
+	            }
+	            return null;
+	        }
+	      };
+	      
+	      
+	      produit.setCellFactory(ChoiceBoxTableCell.forTableColumn(produitConverter, produitObservable));
+	      produit.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Ligne, Produit>>() {
+	    	    @Override
+	    	    
+	    	    public void handle(TableColumn.CellEditEvent<Ligne, Produit> event) {
+	    	        event.getRowValue().setProduit(event.getNewValue());
+	    	    }
+	    	});
+
+
 	  
   }
 
@@ -95,6 +140,23 @@ public class FactureController implements Initializable {
 	      sommeFacture.setText("0.00 €");
 	      return;
 	    }
-  } 
+	    
+	    NumberExpression somme = items.get(0).totalTTCProperty();
+	    for (int i = 1; i < items.size(); i++) {
+	      somme = Bindings.add(somme, items.get(i).totalTTCProperty());
+	    }
+	    
+	    NumberExpression sommeFinal = somme;
+	    sommeFacture.textProperty().bind(
+	        Bindings.createStringBinding(
+	            () -> String.format("%.2f €", sommeFinal.floatValue()),
+	            sommeFinal
+	        )
+	    );
+
+
+  }
+  
+  
   
 }
