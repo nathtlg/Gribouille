@@ -3,27 +3,19 @@ package fr.iutgon.tp6;
 import fr.iutgon.tp6.modele.FabriqueProduits;
 import fr.iutgon.tp6.modele.Ligne;
 import fr.iutgon.tp6.modele.Produit;
-import javafx.beans.binding.Bindings;
-import javafx.beans.binding.NumberExpression;
-import javafx.beans.property.ReadOnlyIntegerWrapper;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+
+import javafx.beans.*; 
+import javafx.collections.*;
 import javafx.css.PseudoClass;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
-import javafx.scene.control.cell.ChoiceBoxTableCell;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.cell.TextFieldTableCell;
-import javafx.util.Callback;
-import javafx.util.StringConverter;
-import javafx.util.converter.IntegerStringConverter;
+import javafx.scene.control.*;
+
+import javafx.util.*;
 
 import java.net.URL;
+import java.text.NumberFormat;
+import java.util.List;
 import java.util.Random;
 import java.util.ResourceBundle;
 
@@ -45,10 +37,26 @@ public class FactureController implements Initializable {
    */
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-    //TODO préparer la table
   }
 
   public void onAjouter(ActionEvent actionEvent) {
-    //TODO ajouter un produit aléatoire à la table
+	  List<Produit> produits = FabriqueProduits.getProduits();
+	  Random random = new Random(); 
+	  Produit produitAleatoire = produits.get(random.nextInt(produits.size()));
+	  int qteAleatoire = random.nextInt(10) + 1;
+	  Ligne ligne = new Ligne(qteAleatoire, produitAleatoire);
+	  table.getItems().add(ligne);
+	  
+	  rebindSomme(); 
   }
+  
+  private void rebindSomme() {
+	    ObservableList<Ligne> items = table.getItems();
+	    if (items.isEmpty()) {
+	      sommeFacture.textProperty().unbind();
+	      sommeFacture.setText("0.00 €");
+	      return;
+	      }
+  } 
+  
 }
