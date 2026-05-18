@@ -4,13 +4,16 @@ import fr.iutgon.tp6.modele.FabriqueProduits;
 import fr.iutgon.tp6.modele.Ligne;
 import fr.iutgon.tp6.modele.Produit;
 
-import javafx.beans.*; 
+import javafx.beans.*;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.*;
 import javafx.css.PseudoClass;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-
+import javafx.scene.control.TableColumn.CellDataFeatures;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.*;
 
 import java.net.URL;
@@ -37,6 +40,41 @@ public class FactureController implements Initializable {
    */
   @Override
   public void initialize(URL location, ResourceBundle resources) {
+	  qte.setCellValueFactory(new PropertyValueFactory<>("qte"));
+	  
+	  produit.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Ligne, Produit>, ObservableValue<Produit>>(){
+
+		@Override
+		public ObservableValue<Produit> call(CellDataFeatures<Ligne, Produit> param) {
+			return param.getValue().produitProperty();
+		}
+		  
+	  }); 
+	  
+	  prixUnitaire.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Ligne, Number>, ObservableValue<Number>>() {
+		    @Override
+		    public ObservableValue<Number> call(CellDataFeatures<Ligne, Number> param) {
+		        return (ObservableValue<Number>) (ObservableValue<?>) param.getValue().produitProperty().get().prixProperty().asObject();
+		    }
+		});
+	  
+
+		totalHT.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Ligne, Number>, ObservableValue<Number>>() {
+			
+		    @Override
+		    public ObservableValue<Number> call(CellDataFeatures<Ligne, Number> param) {
+		        return param.getValue().totalHTProperty();
+		    }
+		});
+		
+		totalTTC.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Ligne, Number>, ObservableValue<Number>>() {
+		    @Override
+		    public ObservableValue<Number> call(CellDataFeatures<Ligne, Number> param) {
+		        return param.getValue().totalTTCProperty();
+		    }
+		});
+	  
+	  
   }
 
   public void onAjouter(ActionEvent actionEvent) {
@@ -56,7 +94,7 @@ public class FactureController implements Initializable {
 	      sommeFacture.textProperty().unbind();
 	      sommeFacture.setText("0.00 €");
 	      return;
-	      }
+	    }
   } 
   
 }
