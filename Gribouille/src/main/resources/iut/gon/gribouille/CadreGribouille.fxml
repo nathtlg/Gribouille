@@ -108,59 +108,50 @@
       </VBox>
    </right>
    <bottom>
-      <GridPane hgap="5.0" BorderPane.alignment="CENTER">
+      <GridPane alignment="CENTER" hgap="5.0" BorderPane.alignment="TOP_CENTER">
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
         </rowConstraints>
          <padding>
             <Insets bottom="1.0" left="2.0" right="2.0" top="2.0" />
          </padding>
          <children>
-            <HBox prefHeight="21.0" prefWidth="116.0">
+            <HBox alignment="CENTER" prefHeight="21.0" prefWidth="116.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                <children>
-                  <Label text="X :">
-                     <padding>
-                        <Insets top="7.0" />
-                     </padding></Label>
+                  <Label alignment="CENTER" text="X :" />
                   <Label fx:id="labelX" text="0">
                      <padding>
-                        <Insets left="5.0" top="7.0" />
+                        <Insets left="5.0" />
                      </padding></Label>
                </children>
             </HBox>
-            <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                <children>
-                  <Label text="Y:">
-                     <padding>
-                        <Insets top="7.0" />
-                     </padding></Label>
+                  <Label text="Y:" />
                   <Label fx:id="labelY" text="0">
                      <padding>
-                        <Insets left="5.0" top="7.0" />
+                        <Insets left="5.0" />
                      </padding></Label>
                </children>
             </HBox>
-            <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2">
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2">
                <children>
-                  <Label text="Epaisseur :">
-                     <padding>
-                        <Insets top="7.0" />
-                     </padding></Label>
+                  <Label text="Epaisseur :" />
                   <Label fx:id="labelEpaisseur" text="3">
                      <padding>
-                        <Insets left="5.0" top="7.0" />
+                        <Insets left="5.0" />
                      </padding></Label>
                </children>
             </HBox>
-            <Label fx:id="labelOutil" text="Outil" GridPane.columnIndex="3" />
-            <Label fx:id="labelCouleur" text="Couleur" GridPane.columnIndex="4" />
+            <Label fx:id="labelOutil" alignment="CENTER" contentDisplay="CENTER" text="Outil" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+            <Label fx:id="labelCouleur" text="Couleur" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
          </children>
       </GridPane>
    </bottom>
