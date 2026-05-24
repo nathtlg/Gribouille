@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.BorderPane?>
+
+ <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" xmlns="http://javafx.com/javafx"
+         xmlns:fx="http://javafx.com/fxml/1"
+         fx:controller="iut.gon.gribouille.controleurs.DessinController">
+         <children>
+            <Canvas fx:id="dessin" height="200.0" layoutX="163.0" layoutY="67.0" width="200.0" onMousePressed="#onMousePressed" onMouseDragged="#onMouseDragged" onMouseMoved="#onMouseMoved"/>
+         </children>
+      </Pane>
+

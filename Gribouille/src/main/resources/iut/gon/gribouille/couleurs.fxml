@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ColorPicker?>
+<?import javafx.scene.layout.TilePane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+
+	<VBox prefHeight="333.0" prefWidth="109.0" BorderPane.alignment="CENTER" xmlns="http://javafx.com/javafx"
+         xmlns:fx="http://javafx.com/fxml/1"
+         fx:controller="iut.gon.gribouille.controleurs.CouleursController">
+	         <children>
+	            <ColorPicker fx:id="colorPicker"/>
+	            <TilePane prefHeight="202.0" prefWidth="139.0">
+	               <children>
+	                  <Rectangle fx:id="rect1" arcHeight="5.0" arcWidth="5.0" fill="#ff1f1f" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0">
+	                     <TilePane.margin>
+	                        <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+	                     </TilePane.margin>
+	                  </Rectangle>
+	                  <Rectangle fx:id="rect2" arcHeight="5.0" arcWidth="5.0" fill="#21ff34" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0">
+	                     <TilePane.margin>
+	                        <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+	                     </TilePane.margin>
+	                  </Rectangle>
+	                  <Rectangle fx:id="rect3" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0">
+	                     <TilePane.margin>
+	                        <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+	                     </TilePane.margin>
+	                  </Rectangle>
+	                  <Rectangle fx:id="rect4" arcHeight="5.0" arcWidth="5.0" fill="#1ff2ff" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" />
+	                  <Rectangle fx:id="rect5" arcHeight="5.0" arcWidth="5.0" fill="#ff1ffbf2" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0">
+	                     <TilePane.margin>
+	                        <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+	                     </TilePane.margin>
+	                  </Rectangle>
+	                  <Rectangle fx:id="rect6" arcHeight="5.0" arcWidth="5.0" fill="#efff1f" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" />
+	                  <Rectangle fx:id="rect7" arcHeight="5.0" arcWidth="5.0" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0">
+	                     <TilePane.margin>
+	                        <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+	                     </TilePane.margin>
+	                  </Rectangle>
+	                  <Rectangle fx:id="rect8" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" />
+	               </children>
+	            </TilePane>
+	         </children>
+	      </VBox>
+
