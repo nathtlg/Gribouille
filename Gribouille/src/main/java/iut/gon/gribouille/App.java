@@ -10,31 +10,22 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+import iut.gon.gribouille.modele.Dessin;
+
 public class App extends Application {
 
     private static Scene scene;
 
     @Override
     public void start(Stage stage) throws IOException {
-
-        scene = new Scene(loadFXML("CadreGribouille"), 640, 480);
+    	Dessin dessin = new Dessin(); 
+    	FXMLLoader loader = new FXMLLoader(App.class.getResource("CadreGribouille.fxml")); 
+    	GribouilleController ctrl = new GribouilleController(dessin); 
+    	loader.setController(ctrl);
+    	Parent root = loader.load(); 
+        scene = new Scene(root, 640, 480);
         stage.setScene(scene);
-        
-        Canvas dessin = (Canvas) scene.lookup("Canvas"); 
-        
-        double[] prev = {0, 0}; 
-        
-        dessin.addEventHandler(MouseEvent.MOUSE_PRESSED, evt -> {
-        	prev[0] = evt.getX(); 
-        	prev[1] = evt.getX(); 
-        }); 
-        
-        dessin.addEventHandler(MouseEvent.MOUSE_DRAGGED, evt -> {
-        	dessin.getGraphicsContext2D().strokeLine(prev[0], prev[1], evt.getX(), evt.getY()); 
-        	prev[0] = evt.getX(); 
-        	prev[1] = evt.getY(); 
-        	
-        });
+        stage.titleProperty().bind(dessin.nomDuFichierProperty());
 
         stage.setOnCloseRequest(event -> {
             if (!Dialogues.confirmation()) {
