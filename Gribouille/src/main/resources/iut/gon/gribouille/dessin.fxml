@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.BorderPane?>
 
- <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" xmlns="http://javafx.com/javafx"
+ <Pane fx:id="pane" prefHeight="200.0" prefWidth="200.0" xmlns="http://javafx.com/javafx"
          xmlns:fx="http://javafx.com/fxml/1"
          fx:controller="iut.gon.gribouille.controleurs.DessinController">
          <children>

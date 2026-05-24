@@ -21,13 +21,12 @@ public class App extends Application {
     public void start(Stage stage) throws IOException {
     	Dessin dessin = new Dessin(); 
     	FXMLLoader loader = new FXMLLoader(App.class.getResource("CadreGribouille.fxml")); 
-    	GribouilleController ctrl = new GribouilleController(dessin); 
-    	loader.setController(ctrl);
     	Parent root = loader.load(); 
-    	Controleur controleur = loader.getController(); 
+    	Controleur controleur = loader.getController();
+    	
         scene = new Scene(root, 640, 480);
         stage.setScene(scene);
-        stage.titleProperty().bind(dessin.nomDuFichierProperty());
+        stage.titleProperty().bind(controleur.dessin.nomDuFichierProperty());
 
         stage.setOnCloseRequest(event -> {
             if (!controleur.onQuitter()) {
