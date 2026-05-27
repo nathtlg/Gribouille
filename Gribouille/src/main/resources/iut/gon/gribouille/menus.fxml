@@ -13,11 +13,12 @@
     <menus>
         <Menu text="Dessin">
             <items>
-                <MenuItem text="Charger" />
-                <MenuItem text="Sauvegarder" />
-                <MenuItem text="Exporter" />
+                <MenuItem text="Charger" onAction="#onCharger" />
+                <MenuItem text="Sauvegarder" onAction="#onSauvegarder" />
+                <MenuItem text="Exporter"/>
                 <SeparatorMenuItem />
-                <MenuItem text="Quitter" onAction="#onQuitte" />
+                <MenuItem text="Quitter" onAction="#onQuitte"/>
+                <MenuItem text="Effacer" onAction="#onEffacer" />
             </items>
         </Menu>
         <Menu text="Outils">

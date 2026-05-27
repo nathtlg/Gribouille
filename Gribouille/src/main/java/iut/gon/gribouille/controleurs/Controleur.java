@@ -5,12 +5,16 @@ import iut.gon.gribouille.modele.Dessin;
 import iut.gon.gribouille.modele.Figure;
 import iut.gon.gribouille.modele.Point;
 import iut.gon.gribouille.modele.Trace;
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.paint.Color;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+import java.io.File;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -47,9 +51,53 @@ public class Controleur implements Initializable {
         statutController.labelEpaisseur.textProperty().bind(epaisseur.asString());
         statutController.labelCouleur.textProperty().bind(couleur.asString());
         }
+    
+    public javafx.beans.binding.StringExpression titreFenetreProperty() {
+        return Bindings.when(dessin.estModifieProperty()).then(Bindings.concat(dessin.nomDuFichierProperty(), " *")).otherwise(dessin.nomDuFichierProperty());
+    }
 
     public boolean onQuitter() {
-        return Dialogues.confirmation();	
+        if (!dessin.getEstModifie()) {
+            return true;
+        }
+ 
+        Dialogues.ResultatQuitter resultat = Dialogues.dialogueQuitter();
+        switch (resultat) {
+            case QUITTER_SANS_SAUVEGARDER:
+                return true;
+            case QUITTER_EN_SAUVEGARDANT:
+                try {
+                    sauvegarde();
+                    return !dessin.getEstModifie();
+                } catch (Exception e) {
+                    return false;
+                }
+            case NE_PAS_QUITTER:
+            default:
+                return false;
+        }
+    }
+
+    public void sauvegarde() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Sauvegarder le dessin");
+        Stage stage = (Stage) dessinController.dessin.getScene().getWindow();
+        File fichierChoisi = fileChooser.showSaveDialog(stage);
+        if (fichierChoisi != null) {
+            dessin.sauveSous(fichierChoisi.getAbsolutePath());
+        }
+    }
+ 
+    public void charge() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Charger un dessin");
+        Stage stage = (Stage) dessinController.dessin.getScene().getWindow();
+        File fichierChoisi = fileChooser.showOpenDialog(stage);
+        if (fichierChoisi != null) {
+            dessin.charge(fichierChoisi.getAbsolutePath());
+            dessinController.efface();
+            dessine();
+        }
     }
 
     public void dessine() {
@@ -64,6 +112,12 @@ public class Controleur implements Initializable {
                 dessinController.trace(a.getX(), a.getY(), b.getX(), b.getY());
             }
         }
+    }
+    
+    public void effacer() {
+        dessin.getFigures().clear();
+        dessin.setEstModifie(true);
+        dessinController.efface();
     }
 
     public void onMousePress(double x, double y) {

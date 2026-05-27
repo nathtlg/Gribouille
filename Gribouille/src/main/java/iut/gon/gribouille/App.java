@@ -4,9 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -30,15 +28,14 @@ public class App extends Application {
         stage.addEventHandler(KeyEvent.KEY_PRESSED, evt -> {
             controleur.onKeyPressed(evt.getText());
         });
-        stage.titleProperty().bind(controleur.dessin.nomDuFichierProperty());
+        stage.titleProperty().bind(controleur.titreFenetreProperty());
 
         stage.setOnCloseRequest(event -> {
             if (!controleur.onQuitter()) {
                 event.consume();
             }
         });
-        
-        
+         
 
         stage.show();
     }

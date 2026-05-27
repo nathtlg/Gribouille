@@ -30,6 +30,21 @@ public class MenusController implements Initializable {
             }
         });
     }
+    
+    @FXML
+    public void onCharger() {
+        controleur.charge();
+    }
+    
+    @FXML
+    public void onEffacer() {
+        controleur.effacer();
+    }
+
+    @FXML
+    public void onSauvegarder() {
+        controleur.sauvegarde();
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {}
