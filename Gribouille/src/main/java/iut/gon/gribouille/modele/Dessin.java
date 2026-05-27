@@ -2,9 +2,16 @@ package iut.gon.gribouille.modele;
 
 import javafx.beans.binding.BooleanExpression;
 import javafx.beans.binding.StringExpression;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
+ 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.util.List;
+import java.util.Scanner;
+
 
 import java.util.List;
 
@@ -20,7 +27,18 @@ public class Dessin {
   /**
    Le nom du fichier. Ou "Sans Nom", si non sauvegardé.
    */
-  private final SimpleStringProperty nomDuFichier = new SimpleStringProperty("Sans Nom");
+  private final SimpleObjectProperty<File> fichier = new SimpleObjectProperty<>(null);
+  
+  /**
+  Expression observable du nom du fichier (chemin complet ou "Sans Nom")
+  */
+
+  private final StringExpression nomDuFichier = javafx.beans.binding.Bindings.createStringBinding(
+	      () -> fichier.get() == null ? "Sans Nom" : fichier.get().getName(),
+	      fichier
+	  );
+
+  
   /**
    La liste des figures
    */
@@ -61,6 +79,14 @@ public class Dessin {
   public boolean getEstModifie() {
     return estModifie.get();
   }
+  
+  /**
+  Retourne le fichier courant (peut être null)
+  */
+ public File getFichier() {
+   return fichier.get();
+ }
+
 
   /**
    Modifie l'état de modification du dessin
@@ -83,12 +109,9 @@ public class Dessin {
     return nomDuFichier.get();
   }
 
-  /**
-   Retourne le nom du fichier
-   */
   public void setNomDuFichier(String nomDuFichier) {
-    this.nomDuFichier.set(nomDuFichier);
-  }
+	    this.fichier.set(new File(nomDuFichier));
+	}
 
   /**
    Le nom du fichier. Ou "Sans Nom", si non sauvegardé.
@@ -97,4 +120,47 @@ public class Dessin {
     return nomDuFichier;
   }
 
-} // public class Dessin
+ /**
+Sauvegarde le dessin dans le fichier spécifié.
+Change le nom du dessin si succès.
+*/
+public void sauveSous(String nom) {
+ try {
+   File nouveauFichier = new File(nom);
+   PrintWriter out = new PrintWriter(nouveauFichier);
+   figures.forEach(f -> f.sauve(out));
+   out.close();
+   this.fichier.set(nouveauFichier);
+   estModifie.set(false);
+ } catch (FileNotFoundException e) {
+   e.printStackTrace();
+ }
+}
+
+/**
+Charge le dessin depuis le fichier spécifié.
+Change le nom du dessin si succès.
+@throws IllegalArgumentException si le fichier est illisible
+*/
+public void charge(String nom) {
+ File nouveauFichier = new File(nom);
+ if (nouveauFichier.exists() && nouveauFichier.canRead()) {
+   figures.clear();
+   try {
+     Scanner scanner = new Scanner(nouveauFichier);
+     while (scanner.hasNextLine()) {
+       String ligne = scanner.nextLine();
+       if (!ligne.isBlank())
+         figures.add(Figure.charge(ligne));
+     }
+     this.fichier.set(nouveauFichier);
+     estModifie.set(false);
+   } catch (FileNotFoundException e) {
+     throw new IllegalArgumentException("Ce fichier est introuvable !");
+   }
+ } else {
+   throw new IllegalArgumentException("Ce fichier est illisible !");
+ }
+}
+}
+
