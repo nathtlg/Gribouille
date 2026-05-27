@@ -42,8 +42,10 @@ public class Controleur implements Initializable {
         
         statutController.labelX.textProperty().bind(precX.asString("%.0f"));
         statutController.labelY.textProperty().bind(precY.asString("%.0f")); 
+        statutController.labelOutil.setText("Crayon");
         
         statutController.labelEpaisseur.textProperty().bind(epaisseur.asString());
+        statutController.labelCouleur.textProperty().bind(couleur.asString());
         }
 
     public boolean onQuitter() {
@@ -98,5 +100,29 @@ public class Controleur implements Initializable {
 	public void setEpaisseur(int ep) {
 	    epaisseur.set(ep);
 	    dessinController.setEpaisseur(ep);
+	}
+	
+	public void onKeyPressed(String touche) {
+	    switch (touche) {
+	        case "c" -> onCrayon();
+	        case "e" -> onEtoile();
+	        case "1" -> setEpaisseur(1);
+	        case "2" -> setEpaisseur(2);
+	        case "3" -> setEpaisseur(3);
+	        case "4" -> setEpaisseur(4);
+	        case "5" -> setEpaisseur(5);
+	        case "6" -> setEpaisseur(6);
+	        case "7" -> setEpaisseur(7);
+	        case "8" -> setEpaisseur(8);
+	        case "9" -> setEpaisseur(9);
+	        case "r" -> setCouleur(Color.RED);
+	        case "n" -> setCouleur(Color.BLACK);
+	        case "b" -> setCouleur(Color.BLUE);
+	        case "w" -> setCouleur(Color.WHITE);
+	        case "p" -> setCouleur(Color.PINK);
+	        case "a" -> setCouleur(Color.DODGERBLUE); 
+	        case "v" -> setCouleur(Color.GREEN); 
+	        case "y" -> setCouleur(Color.YELLOW); 
+	    }
 	}
 }

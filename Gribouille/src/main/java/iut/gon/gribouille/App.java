@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
@@ -26,6 +27,9 @@ public class App extends Application {
     	
         scene = new Scene(root, 640, 480);
         stage.setScene(scene);
+        stage.addEventHandler(KeyEvent.KEY_PRESSED, evt -> {
+            controleur.onKeyPressed(evt.getText());
+        });
         stage.titleProperty().bind(controleur.dessin.nomDuFichierProperty());
 
         stage.setOnCloseRequest(event -> {
