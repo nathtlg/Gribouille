@@ -8,7 +8,7 @@
 
 	<VBox prefHeight="333.0" prefWidth="109.0" xmlns="http://javafx.com/javafx"
          xmlns:fx="http://javafx.com/fxml/1"
-         fx:controller="iut.gon.gribouille.controleurs.CouleursController">
+         fx:controller="iut.gon.gribouille.controleurs.CouleursController" onMouseClicked="#onClicCouleur">
 	         <children>
 	            <ColorPicker fx:id="colorPicker"/>
 	            <TilePane prefHeight="202.0" prefWidth="139.0">

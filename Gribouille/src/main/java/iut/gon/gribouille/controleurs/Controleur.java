@@ -89,4 +89,14 @@ public class Controleur implements Initializable {
 	    outilCourant = new OutilEtoile(this);
 	    statutController.labelOutil.setText("Étoile");
 	}
+	
+	public void setCouleur(Color c) {
+	    couleur.set(c);
+	    dessinController.setCouleur(c);
+	}
+	
+	public void setEpaisseur(int ep) {
+	    epaisseur.set(ep);
+	    dessinController.setEpaisseur(ep);
+	}
 }

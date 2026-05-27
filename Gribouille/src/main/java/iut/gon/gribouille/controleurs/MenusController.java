@@ -22,6 +22,13 @@ public class MenusController implements Initializable {
         	if (newVal == menuCrayon) controleur.onCrayon(); 
         	else if (newVal == menuEtoile) controleur.onEtoile(); 
         });
+        
+        groupeEpaisseur.selectedToggleProperty().addListener((obs, oldVal, newVal) -> {
+            if (newVal != null) {
+                String texte = ((RadioMenuItem) newVal).getText();
+                controleur.setEpaisseur(Integer.parseInt(texte));
+            }
+        });
     }
 
     @Override
